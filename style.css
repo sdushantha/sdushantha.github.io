@@ -1,0 +1,40 @@
+.re {
+    font-family: Ubuntu Mono;
+    font-size: 26px;
+    padding-top: 200px;
+    padding-right: 300px;
+    padding-left: 320px;
+}
+pre{
+    font-size: 26px;
+    width:300px;
+    height:200px;
+    position:absolute;
+    left:31%;
+    top:41.5%;
+    margin:-100px 0 0 -150px;
+}
+body{
+    background: #282936;
+    margin: 0px auto;
+}
+
+span.white {
+    color: #FFFFFF;
+}
+
+span.purple {
+    color: #ff5cc2;
+}
+
+span.green {
+    color: #00FF7A;
+}
+
+span.lightblue {
+    color: #66d9ef;
+}
+
+span.yellow {
+    color: #f1fa8c;
+}
