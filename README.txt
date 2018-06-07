@@ -1,2 +1,1 @@
-This is work in progress...
-This whole thing is not built by me. I used a template :)
+This is my basic site.
