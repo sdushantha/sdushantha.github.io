@@ -1,39 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow');
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
 
-pre.info{
-    font-size: 26px;
-    width:300px;
-    height:200px;
-    position:absolute;
-    left:31%;
-    top:41.5%;
-    margin:-100px 0 0 -150px;
-}
-body{
-    background: #282936;
-    margin: 0px auto;
-    position:fixed;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-}
+html {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  color:#282828;
+  font-family: 'PT Sans', sans-serif !important;
 
-span.white {
-    color: #FFFFFF;
 }
-
-span.purple {
-    color: #ff5cc2;
+h1 {
+	font-family: "PT Sans Narrow", sans-serif !important;
+	font-size: 32px !important;
+}
+h2 {
+	font-family: "PT Sans Narrow", sans-serif !important;
+	font-family: 29px
+}
+p {
+	font-size: 17px
 }
 
-span.green {
-    color: #00FF7A;
+code {
+	background:#eee;
+	padding:2.5px 5px;
+	font-size:14px;
 }
 
-span.lightblue {
-    color: #66d9ef;
+small {
+	font-size: 15px;
+	font-family: "PT Sans", sans-serif !important
 }
 
-span.yellow {
-    color: #f1fa8c;
+a {
+	color:#536ef3;
+	text-decoration: none;
+}
+
+img {
+	display: block;
+    margin: 0 auto;
+}
+
+p.divider {
+	text-align:center;
+	font-size: 13px;
+}
+
+figcaption {
+	text-align: center;
+	font-size: 13px;
+	font-family: 'PT Sans', sans-serif !important;
+	color: #525252;
+	
 }
