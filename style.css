@@ -26,7 +26,7 @@ img {
 
 pre>code {
  padding:20px;
- white-space:pre-wrap
+ white-space:pre-wrap;
 }
 
 code {
@@ -49,7 +49,8 @@ h1 {
 
 h2 {
 	font-family: "PT Sans Narrow", sans-serif !important;
-	font-family: 29px
+	font-family: 29px;
+    margin-bottom: 0px;
 }
 
 
@@ -70,10 +71,19 @@ figcaption {
 }
 
 p {
-	font-size: 17px
+	font-size: 17px;
+    margin-top: 0px;
 }
 
 p.divider {
 	text-align:center;
 	font-size: 13px;
+}
+
+strong {
+    font-size: 18px;
+}
+
+ul {
+    font-size: 17px;
 }
