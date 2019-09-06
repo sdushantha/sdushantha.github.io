@@ -87,3 +87,7 @@ strong {
 ul {
     font-size: 17px;
 }
+
+#navigation {
+    text-decoration: none;
+}
