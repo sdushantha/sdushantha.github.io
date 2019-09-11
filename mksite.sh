@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-template='<!DOCTYPE html><html lang="en"> <head> <meta charset="utf-8"> <title>siddharth dushantha</title> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="stylesheet" href="../style.css"> <link href="data:image/png;base64," rel=icon type="image/png"> </head> <main> <div> <a id="navigation" href="../">[home]</a><h1>TITLE</h1><small>DATE</small> --CONTENT-- </div> </main></html>'
+template='<!doctype html><html lang="en"> <head> <meta charset="utf-8"> <title>siddharth dushantha</title> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="stylesheet" href="../style.css"> <link href="data:image/png;base64," rel=icon type="image/png"> </head><div> <a id="navigation" href="../">[home]</a><h1>TITLE</h1><small>DATE</small> --CONTENT-- </div></html>'
 
 dots='<br><p class="divider"> •&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• </p><br>'
 

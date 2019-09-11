@@ -7,13 +7,13 @@ body {
 }
 
 img,
-main,
+div,
 pre>code {
  display:block;
  margin:25px auto
 }
 
-main {
+div {
  padding:20px;
  max-width:600px;
  line-height:1.6;
