@@ -1,0 +1,83 @@
+import re
+import sys
+import subprocess
+import argparse
+
+template="""
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>siddharth dushantha</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="stylesheet" href="../style.css">
+      <link href="data:image/png;base64," rel=icon type="image/png">
+   </head>
+      <div>
+        <a id="navigation" href="../">[home]</a>
+        {content}
+      </div>
+</html>
+"""
+
+dots = """
+<br>
+  <p class="divider"> •&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• </p>
+<br>
+"""
+
+def convert(file, date):
+    # Might need to move to argparse to be safe
+    md_file = file
+
+    # Check whether the provided file is a Markdown file or not
+    if not md_file.endswith(".md"):
+        print("You must provide a Markdown file (.md)")
+        sys.exit()
+
+    # Open the file markdown file given by the user.
+    md = open(md_file, "r+").read()
+    
+    # Extract the file name without the extension from the whole path
+    fname = re.findall("md\/(.*?)\.md", md_file)[0]
+    
+    # This is the file which will be used for the site
+    html_file = "posts/{fname}.html".format(fname=fname)
+    
+    # We are using pandoc to convert the markdown file to HTML because markdown2
+    # and other Python modules dont work properly
+    content = subprocess.run(["pandoc", md_file], stdout=subprocess.PIPE).stdout.decode('utf-8')
+    
+    # Insert the date the user has given into the HTML page
+    content = content.replace("<hr />", "<small>{date}</small>\n<hr />".format(date=date))
+    
+    # If the user has written {DOTS} in the markdown file, replace that with the
+    # cool dots/seperator thingy
+    content= re.sub("\n<p>{DOTS}<\/p>\n", dots, content)
+    
+    # For some reason, pandoc interprets <br> as normal text and that might be
+    # because pandoc does not support GitHub flavoured markdown, but to fix that,
+    # I have to replace <p><br /></p> with the normal <br>
+    content = re.sub("\n<p><br \/><\/p>\n", "<br>", content)
+    
+    # Put everything together...
+    site = template.format(content=content)
+    
+    # ...and finally, write the awesome looking page to the html file
+    with open(html_file, "w") as f:
+        f.write(site)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate a cool webpage from Markdown files")
+    parser.add_argument('file', action="store")
+    parser.add_argument('--date', "-d", help="Date of the post")
+    args = parser.parse_args()
+
+    # I know using the variable name file, is not the smartest because it is a
+    # Python function, but whatever ¯\_(ツ)_/¯
+    convert(file=args.file, date=args.date)
+
+
+if __name__ == "__main__":
+    main()
