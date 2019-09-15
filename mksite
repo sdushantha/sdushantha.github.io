@@ -58,13 +58,22 @@ def convert(file, date):
     
     # For some reason, pandoc interprets <br> as normal text and that might be
     # because pandoc does not support GitHub flavoured markdown, but to fix that,
-    # I have to replace <p><br /></p> with the normal <br>
+    # I have to replace <p><br /></p> or <p><br></p> (it varies sometimes),
+    # with the normal <br>
     content = re.sub("\n<p><br \/><\/p>\n", "<br>", content)
-    
-    # Put everything together...
+    content = re.sub("\n<p><br><\/p>\n", "<br>", content)
+
+
+    # Put everything together
     site = template.format(content=content)
-    
-    # ...and finally, write the awesome looking page to the html file
+
+    if fname == "index":
+        site = re.sub('<a id="navigation".*<\/a>', "", site)
+        site = re.sub("\.\.\/style\.css", "style.css", site)
+        html_file = "index.html".format(fname=fname)
+
+
+    # Write the awesome looking page to the html file
     with open(html_file, "w") as f:
         f.write(site)
 

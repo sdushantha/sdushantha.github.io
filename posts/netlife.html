@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -7,139 +8,56 @@
       <link rel="stylesheet" href="../style.css">
       <link href="data:image/png;base64," rel=icon type="image/png">
    </head>
-   <main>
       <div>
-         <a id="navigation" href="../">[home]</a>
-         <h1>Reflected XSS and HTML injection on netlife.no</h1>
-         <small>25 Oct 2018</small>
-         <hr>
+        <a id="navigation" href="../">[home]</a>
+        <h1 id="reflected-xss-and-html-injection-on-netlife.no">Reflected XSS and HTML injection on netlife.no</h1>
+<small>25 Oct 2018</small>
+<hr />
+<p>On the 22nd of October I was successfully able to find out that netlife.no was vulnerable to <a href="https://www.acunetix.com/vulnerabilities/web/html-injection/">HTML injection</a> and <a href="https://security.stackexchange.com/questions/65142/what-is-reflected-xss/65242#65242">reflected XSS</a>. So you might be wondering why did I target Netlife? Well it had only been a few weeks since we had school photos taken and after a few days we were told to go to fotonorden.no where we had to put in a code and then could see our images and Foto Norden used Netlife’s service to show and sell the photos to us.</p>
+<p>After typing the code and logging in, I was greeted with this page:</p>
+<figure>
+<img src="images/netlife/fotonorden_shop.png" alt="" /><figcaption>I turned off the images so that you guys cant see my handsome school photos</figcaption>
+</figure><br><p>The first thing I did was to drag one of my photos onto a new tab and was able to see the direct URL to the image.</p>
+<figure>
+<img src="images/netlife/direct_url.png" alt="" /><figcaption>The photo is not shown because of the same reason as I mentioned earlier</figcaption>
+</figure><br><p>I saw that there was a parameter with the name <code>uuid</code>. So what did I do? Well I just replaced the value of the <code>uuid</code> with this payload:</p>
+<pre><code>&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;</code></pre>
+<p>Which surprisingly gave me this:</p>
+<figure>
+<img src="images/netlife/xss_success.png" alt="" /><figcaption>Yay it worked! 🎉</figcaption>
+</figure><br><p>Now I knew that knew that it was vulnerable to reflected XSS. Since I was able to inject JavaScript code, would it possible to inject HTML code? Yup! I just replace the value of the uuid with this payload:</p>
+<pre><code>&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;center&gt;&lt;font size=”79&quot; color=”red”&gt;HTML INJECTION&lt;/font&gt;&lt;br&gt;&lt;img width=”500&quot; height=”400&quot; src=”http://images.clipartpanda.com/unicorn-with-wings-clipart-black-and-white-cute-unicorn-clipart-unicorn4.png&quot;&gt; &lt;/center&gt;</code></pre>
+<p>Which gave me this:</p>
+<figure>
+<img src="images/netlife/html_injection.png" alt="" /><figcaption>Yes, I like unicorns 🦄</figcaption>
+</figure><br><p>And there, I was able to conclude that Netlife, which was the service which Foto Norden was using, was vulnerable to reflected XSS and HTML injection.</p>
+<h2 id="how-could-an-attacker-exploit-this">How could an attacker exploit this?</h2>
+<p>Well the attacker could steal any user’s cookies just by sending Foto Norden’s URL with a malicious payload to a victim. If the victim was logged in to Foto Norden and opened the URL which the the attacker sent them, the attacker could steal their cookies and log in to the victims account and see and buy their photos.</p>
+<h2 id="resoltuion-timeline">Resoltuion Timeline</h2>
+<p><strong>22 October 2018</strong></p>
+<ul>
+<li>9:20 AM: Issue reported to Netlife via email</li>
+</ul>
+<p><strong>23 October 2018</strong></p>
+<ul>
+<li>10:20 AM: Netlife confirms vulnerability</li>
+</ul>
+<p><strong>24 October 2018</strong></p>
+<ul>
+<li>8:57 AM: I send more information on how this could be exploited</li>
+</ul>
+<p><strong>25 October 2018</strong></p>
+<ul>
+<li>9:44 AM: Netlife takes measures to prevent HTML Injection and reflected XSS from happening again</li>
+</ul>
+<p><strong>26 October 2018</strong></p>
+<ul>
+<li>3:16 PM: Rewarded by the company. They gave me a discount code so that I could get my school photos mailed to me for free.</li>
+</ul>
+<br>
+  <p class="divider"> •&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• </p>
+<br>
+<p>Thank you for reading about how I was able to find two vulnerabilities in Netlife’s website.</p>
 
-         <p>
-            On the 22nd of October I was successfully able to find out that netlife.no
-            was vulnerable to <a href="https://www.acunetix.com/vulnerabilities/web/html-injection/">HTML injection</a>
-            and <a href="https://security.stackexchange.com/a/65242">reflected XSS.</a>
-            So you might be wondering why did I target Netlife? Well it had only been
-            a few weeks since we had school photos taken and after a few days we were
-            told to go to fotonorden.no where we had to put in a code and then could 
-            see our images and Foto Norden used Netlife’s service to show and sell the
-            photos to us.
-         </p>
-
-         <p>
-            After typing the code and logging in, I was greeted with this page:
-         </p>
-
-         <figure>
-            <img src="images/netlife/fotonorden_shop.png">
-            <figcaption>I turned off the images so that you guys cant see my handsome school photos</figcaption>
-         </figure>
-         <br>
-
-         <p>
-            The first thing I did was to drag one of my photos onto a new tab and was
-            able to see the direct URL to the image.
-         </p>
-
-         <figure>
-            <img src="images/netlife/direct_url.png">
-            <figcaption>The photo is not shown because of the same reason as I mentioned earlier</figcaption>
-         </figure>
-         <br>
-
-         <p>
-            I saw that there was a parameter with the name <code>uuid</code>. So what did I do? Well
-            I just replaced the value of the uuid with this payload:
-         </p>
-
-         <pre><code>&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;</code></pre>
-
-         <p>
-            Which surprisingly gave me this:
-         </p>
-
-         <figure>
-            <img src="images/netlife/xss_success.png">
-            <figcaption>Yay it worked! 🎉</figcaption>
-         </figure>
-         <br>
-
-         <p>
-            Now I knew that knew that it was vulnerable to reflected XSS. Since I was
-            able to inject JavaScript code, would it possible to inject HTML code? Yup!
-            I just replace the value of the uuid with this payload:
-         </p>
-
-         <pre><code>&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;center&gt;&lt;font size=&#8221;79&#34; color=&#8221;red&#8221;&gt;HTML INJECTION&lt;/font&gt;&lt;br&gt;&lt;img width=&#8221;500&#34; height=&#8221;400&#34; src=&#8221;http://images.clipartpanda.com/unicorn-with-wings-clipart-black-and-white-cute-unicorn-clipart-unicorn4.png&#34;&gt; &lt;/center&gt;</code></pre>
-
-         <p>
-            Which gave me this:
-         </p>
-
-         <figure>
-            <img src="images/netlife/html_injection.png">
-            <figcaption>Yes, I like unicorns 🦄</figcaption>
-         </figure>
-         <br>
-
-         <p>
-            And there, I was able to conclude that Netlife, which was the service which
-            Foto Norden was using, was vulnerable to reflected XSS and HTML injection.
-         </p>
-
-         <h2>
-            How could an attacker exploit this?
-         </h2>
-
-         <p>
-            Well the attacker could steal any user’s cookies just by sending Foto Norden’s
-            URL with a malicious payload to a victim. If the victim was logged in to
-            Foto Norden and opened the URL which the the attacker sent them, the attacker
-            could steal their cookies and log in to the victims account and see and
-            buy their photos.
-         </p>
-
-         <h2>
-            Resolution Timeline
-         </h2>
-
-         <strong>22 October 2018</strong>
-         <ul>
-            <li>
-               9:20 AM: Issue reported to Netlife via email
-            </li>
-         </ul>
-         <strong>23 October 2018</strong>
-         <ul>
-            <li>
-               10:20 AM: Netlife confirms vulnerability
-            </li>
-         </ul>
-         <strong>24 October 2018</strong>
-         <ul>
-            <li>
-               8:57 AM: I send more information on how this could be exploited
-            </li>
-         </ul>
-         <strong>25 October 2018</strong>
-         <ul>
-            <li>
-               9:44 AM: Netlife takes measures to prevent HTML Injection and reflected XSS from happening
-            </li>
-         </ul>
-         <strong>26 October 2018</strong>
-         <ul>
-            <li>
-               3:16 PM: Rewarded by the company. They gave me a discount code so that I could get my school photos mailed to me for free.
-            </li>
-         </ul>
-
-         <br>
-         <p class="divider"> •&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• </p>
-         <br>
-
-         <p>
-            Thank you for reading about how I was able to find two vulnerabilities in Netlife’s website.
-         </p>
       </div>
-   </main>
 </html>
