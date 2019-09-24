@@ -4,23 +4,20 @@
    <head>
       <meta charset="utf-8">
       <title>siddharth dushantha</title>
+      <meta name=description content="¯\_(ツ)_/¯"
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <link rel="stylesheet" href="../style.css">
+      <link rel="stylesheet" href="../style.css" async>
       <link href="data:image/png;base64," rel=icon type="image/png">
    </head>
       <div>
         <a id="navigation" href="../">[home]</a>
         <h1 id="how-i-was-able-by-bypass-my-schools-security-system-and-gain-sudo-privileges-on-the-school-macbooks">How I was able by bypass my schools security system and gain sudo privileges on the school MacBooks</h1>
-<small>22 Feb 2019</small>
+<small>None</small>
 <hr />
 <p>I am very lucky to go to a school which gives us MacBook Airs to use at school and at home. A few months after I got my MacBook, I started to learn about the command line because why not? Something that I noticed while playing around on the terminal was that I was not able to run commands as root.</p>
 <p>I kept getting this error when running any command with <code>sudo</code> or if I just ran <code>su</code>:</p>
-<p><img src="images/bypass/sudo_failed.png" /></p>
-<p><br></p>
-<p>This was very disappointing because I really wanted to install <a href="https://brew.sh/">Homebrew</a>, which is the <em>The missing package manager for macOS</em>.</p>
-<p>So what did I do? Well I went right to my IT department at my school and asked them why this was happening. I was told that the reason was that the school had installed device management profiles on the school MacBooks which blocked the students from becoming root because the IT department did not want anyone to mess up their MacBook and lose their school work which was not was not backed up. Oh well, I just had to live with this restriction.</p>
-<p><br></p>
-<h2 id="about-a-year-later">About a year later…</h2>
+<p><img src="images/bypass/sudo_failed.png" /></p><br><p>This was very disappointing because I really wanted to install <a href="https://brew.sh/">Homebrew</a>, which is the <em>The missing package manager for macOS</em>.</p>
+<p>So what did I do? Well I went right to my IT department at my school and asked them why this was happening. I was told that the reason was that the school had installed device management profiles on the school MacBooks which blocked the students from becoming root because the IT department did not want anyone to mess up their MacBook and lose their school work which was not was not backed up. Oh well, I just had to live with this restriction.</p><br><h2 id="about-a-year-later">About a year later…</h2>
 <p>I was able to bypass the schools security system which blocked me from gaining sudo privileges and actually gain sudo privileges!</p>
 <p>How was I able to do it? After doing some research, I found out that I had to add <code>username ALL=(ALL:ALL) ALL</code> to the <code>/etc/sudoers</code> file. But I had one problem, I could not edit the file without <code>sudo</code> (I was using <code>nano</code>). I later found out that when using a text editor like Sublime Text, and edited a file which usually would require me to use <code>sudo</code> when editing with <code>nano</code> or <code>vim</code>, that I was able to edit and save the file. When saving the file with Sublime Text, it would give me a popup and ask me to type in my password so that Sublime Text could save the file.</p>
 <figure>
