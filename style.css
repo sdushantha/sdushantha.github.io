@@ -88,6 +88,12 @@ ul {
     font-size: 17px;
 }
 
+a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 #navigation {
     text-decoration: none;
 }
