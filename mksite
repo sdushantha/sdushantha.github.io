@@ -90,7 +90,7 @@ def convert(file, date):
 def main():
     parser = argparse.ArgumentParser(description="Generate a cool webpage from Markdown files")
     parser.add_argument('file', action="store")
-    parser.add_argument('--date', "-d", help="Date of the post")
+    parser.add_argument('date', action="store")
     args = parser.parse_args()
 
     # I know using the variable name file, is not the smartest because it is a

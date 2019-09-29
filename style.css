@@ -97,3 +97,19 @@ a {
 #navigation {
     text-decoration: none;
 }
+
+@media (prefers-color-scheme: dark) {
+     body {
+         color: #ddd;
+         background-color: #222;
+    }
+     a {
+         color: #7093d4;
+    }
+     code {
+         color: #222;
+    }
+     figcaption {
+         color: #ddd;
+    }
+}
