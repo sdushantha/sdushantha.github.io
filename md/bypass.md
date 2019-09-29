@@ -14,8 +14,7 @@ ran ```su```:
 
 <br>
 
-This was very disappointing because I really wanted to install [Homebrew](https://brew.sh/),
-which is the _The missing package manager for macOS_.
+This was very disappointing because I really wanted to install [Homebrew](https://brew.sh/), which is the _The missing package manager for macOS_.
 
 So what did I do? Well I went right to my IT department at my school and asked
 them why this was happening. I was told that the reason was that the school had
