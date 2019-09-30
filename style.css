@@ -105,16 +105,17 @@ a {
  */
 @media (prefers-color-scheme: dark) {
      body {
-         color: #ddd;
-         background-color: #222;
+         color: #d7d7d8;
+         background-color: #161716;
     }
      a {
-         color: #7093d4;
+         color: #66bbff;
     }
      code {
-         color: #222;
+         color: #d5dada;
+         background: #313231;
     }
      figcaption {
-         color: #ddd;
+         color: #d7d7d8;
     }
 }
