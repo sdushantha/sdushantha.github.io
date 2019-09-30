@@ -99,6 +99,10 @@ a {
     text-decoration: none;
 }
 
+/* Enable darkmode on website, if the user has turned on dark
+ * mode on their system.
+ * https://mzl.la/2nPgC2Y
+ */
 @media (prefers-color-scheme: dark) {
      body {
          color: #ddd;
