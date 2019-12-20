@@ -99,6 +99,10 @@ a {
     text-decoration: none;
 }
 
+i {
+    color: #000000
+}
+
 /* Enable darkmode on website, if the user has turned on dark
  * mode on their system.
  * https://mzl.la/2nPgC2Y
@@ -118,8 +122,9 @@ a {
      figcaption {
          color: #d7d7d8;
     }
+
+    i {
+	color: #d7d7d8
+    }
 }
 
-i {
-    color: #000000
-}
