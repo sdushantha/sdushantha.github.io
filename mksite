@@ -80,7 +80,18 @@ def convert(file, date):
         site = re.sub(r'<a id="navigation".*<\/a>', "", site)
         site = re.sub(r"\.\.\/style\.css", "style.css", site)
         html_file = "index.html".format(fname=fname)
+    
+    if fname == "posts":
+        site = re.sub(r"\.\.\/style\.css", "style.css", site)
+        html_file = "posts.html".format(fname=fname)
 
+    if fname == "about":
+        site = re.sub(r"\.\.\/style\.css", "style.css", site)
+        html_file = "about.html".format(fname=fname)
+
+    if fname == "bookmarklets":
+        site = re.sub(r"\.\.\/style\.css", "style.css", site)
+        html_file = "bookmarklets.html".format(fname=fname)
 
     # Write the awesome looking page to the html file
     with open(html_file, "w") as f:

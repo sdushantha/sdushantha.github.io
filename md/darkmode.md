@@ -50,4 +50,4 @@ After applaying the CSS to your website, this should happen:
 > _If you only knew the power of the darkside_ - Dark Vader
 
 Thank you for reading this post, and I hope you were able to add this cool
-effect your website too!
+effect your website as well!
