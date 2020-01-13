@@ -6,8 +6,8 @@ make you life much easier.
 To use them, all you have to do is to drag the text that has square brackets around it, into your bookmark bar which is located
 on the top of your browser and when you want to use it, just click on the bookmarklet.
 
-Have any question? Want to request a bookmarlet? Or just want to say? Feel free
-to shot me an email. My email can be found on the about page.
+Have any questions? Want to request a bookmarlet? Or just want to say? Feel free
+to shoot me an email. My email can be found in the about page.
 
 ---
 
