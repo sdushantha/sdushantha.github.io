@@ -7,7 +7,7 @@ TEMPLATE = """
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+<title>Today's Lunch</title>
 </head>
 <body>
 <style>
