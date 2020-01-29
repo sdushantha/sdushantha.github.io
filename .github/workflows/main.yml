@@ -1,0 +1,14 @@
+name: Schedual Lunch
+
+on:
+  schedule:
+  - cron: '0 3 * * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Update lunch
+      run: bash ./update_lunch.sh 
