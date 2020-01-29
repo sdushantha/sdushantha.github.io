@@ -7,3 +7,5 @@ site.
 The posts on the site are in the center of the screen so that it is easy to
 read on computers and on phones. The style of the website was taken from Medium
 which is site where you can write blogs.
+
+---
