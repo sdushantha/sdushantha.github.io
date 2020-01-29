@@ -43,8 +43,25 @@ div {
 </html>
 """
 
-url = "http://portal.blog.isstavanger.no/cafeteria/"
-r = requests.get(url)
+cookies = {
+    'PHPSESSID': 'drhll3rsfc42s9n50t1vihanj2',
+    'wordpress_google_apps_login': '803a223f7e5b35d6e6f9dcaf8274ed7a',
+    'wordpress_test_cookie': 'WP+Cookie+check',
+    'bid_144_password_protected_auth': 'bid_144%7C1582045337%7Cc1b132fb880d11bedf48265ec247cacd',
+}
+
+headers = {
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:72.0) Gecko/20100101 Firefox/72.0',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Referer': 'http://portal.blog.isstavanger.no/?password-protected=login&redirect_to=http%3A%2F%2Fportal.blog.isstavanger.no%2Fcafeteria%2F',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1',
+}
+
+# This request needs the headers and cookies because login is needed to access the info.
+# If you are on the school network, then login is not required.
+r = requests.get('http://portal.blog.isstavanger.no/cafeteria/', headers=headers, cookies=cookies)
 
 html = r.text
 
