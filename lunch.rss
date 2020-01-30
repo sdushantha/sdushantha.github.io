@@ -6,25 +6,11 @@
   <link>https://sdushantha.github.io/lunch.html</link>
   <description>Today's Lunch</description>
   <item>
-    <title>Pizza</title>
-    <link>https://sdushantha.github.io/lunch.html</link>
-    <description>28.01.2020</description>
-  </item>
-  <item>
     <title>Cottage pie (gf)</title>
     <link>https://sdushantha.github.io/lunch.html</link>
     <description>30.01.2020</description>
+    <pubDate>Sun, 19 May 2002 15:21:36 GMT</pubDate>
 </item>
-  <item>
-    <title>Chicken Korma</title>
-    <link>https://sdushantha.github.io/lunch.html</link>
-    <description>29.01.2020</description>
-</item>
-  <item>
-    <title>Italian Pizza</title>
-    <link>https://sdushantha.github.io/lunch.html</link>
-    <description>28.01.2020</description>
-  </item>
 </channel>
 
 </rss> 
