@@ -8,6 +8,8 @@ TEMPLATE = """
 <html>
 <head>
 <title>Today's Lunch</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="data:image/png;base64," rel=icon type="image/png">
 </head>
 <body>
 <style>
