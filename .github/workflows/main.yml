@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Update lunch
-      run: bash ./update_lunch.sh 
+      run: bash update_lunch.sh 
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
