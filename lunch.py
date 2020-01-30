@@ -59,6 +59,7 @@ headers = {
     'Upgrade-Insecure-Requests': '1',
 }
 
+print("Fetching data from school website")
 # This request needs the headers and cookies because login is needed to access the info.
 # If you are on the school network, then login is not required.
 r = requests.get('http://portal.blog.isstavanger.no/cafeteria/', headers=headers, cookies=cookies)
@@ -74,6 +75,7 @@ todays_date = today.strftime("%B %d, %Y")
 lunch_data = {}
 
 def generate_data():
+    print("Generating data")
     for count, date in enumerate(dates):
         month, day, year = date
         current_date = f"{month} {day} {year}"
@@ -93,6 +95,7 @@ def todays_lunch():
     return data.get(todays_date)
 
 def generate_website():
+    print("Generating website")
     with open("lunch.html", "w") as fname:
         fname.write(TEMPLATE.replace("$LUNCH$", todays_lunch()))
 
