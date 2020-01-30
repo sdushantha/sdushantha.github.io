@@ -2,7 +2,7 @@ name: Schedual Lunch
 
 on:
   schedule:
-  - cron: '0 3 * * *'
+  - cron: '25 5 * * *'
 
 jobs:
   build:
