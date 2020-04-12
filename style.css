@@ -85,8 +85,13 @@ strong {
 }
 
 ul {
-    font-size: 17px;
+  font-size: 17px;
+  list-style: none;
+  padding-left: 13px;
+  list-style-type: '- ';
 }
+
+
 
 a {
     /*display: block;*/
@@ -96,8 +101,14 @@ a {
     text-decoration: none;
 }
 
-#navigation {
-    text-decoration: none;
+.navigation {
+  float: right;
+  list-style: none;
+
+}
+
+.navigation a {
+  padding: 0px 10px;
 }
 
 i {
@@ -128,5 +139,4 @@ i {
 	color: #d7d7d8
     }
 }
-
 
