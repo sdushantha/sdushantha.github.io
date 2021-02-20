@@ -9,6 +9,7 @@ tags = []
 categories = []
 externalLink = ""
 series = []
+draft: false
 +++
 
 On the 22nd of October I was successfully able to find out that netlife.no was
