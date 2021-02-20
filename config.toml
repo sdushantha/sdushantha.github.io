@@ -3,6 +3,7 @@ title = "Siddharth Dushantha"
 
 theme = "hugo-coder"
 publishDir = "docs"
+
 languageCode = "en"
 defaultContentLanguage = "en"
 
