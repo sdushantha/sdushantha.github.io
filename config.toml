@@ -2,7 +2,7 @@ baseURL = "/"
 title = "Siddharth Dushantha"
 
 theme = "hugo-coder"
-
+publishDir = "."
 languageCode = "en"
 defaultContentLanguage = "en"
 
