@@ -1,5 +1,5 @@
 +++ 
-draft = true
+draft = false 
 date = 2019-09-25T12:08:03+01:00
 title = "Reflected XSS and HTML injection on netlife.no"
 description = ""
@@ -9,7 +9,6 @@ tags = []
 categories = []
 externalLink = ""
 series = []
-draft: false
 +++
 
 On the 22nd of October I was successfully able to find out that netlife.no was
