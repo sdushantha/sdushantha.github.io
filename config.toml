@@ -83,3 +83,10 @@ pygmentsCodeFencesGuessSyntax = true
 [languages]
     [languages.en]
         languageName = "English"
+
+        [languages.en.menu]
+            
+            [[languages.en.menu.main]]
+            name = "Blog"
+            weight = 1
+            url = "posts/"
