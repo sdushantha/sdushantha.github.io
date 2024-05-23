@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Siddharth Dushantha</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Siddharth Dushantha</description>
+    <generator>Hugo -- 0.126.1</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 May 2024 21:49:35 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ANSI Escape Injection Vulnerability in WinRAR</title>
+      <link>http://localhost:1313/blog/winrar-ansi-esc/</link>
+      <pubDate>Tue, 21 May 2024 21:49:35 +0200</pubDate>
+      <guid>http://localhost:1313/blog/winrar-ansi-esc/</guid>
+      <description>On 28 February 2024, RARLAB released an update for WinRAR, patching an ANSI escape sequence injection vulnerability that I had found in the console versions of RAR and UnRAR, affecting versions 6.24 and earlier. This vulnerability, tracked as CVE-2024–33899 for Linux and Unix systems and CVE-2024–36052 for the Windows, allowed attackers to spoof screen output or cause denial of service (in Linux and Unix). This vulnerability was patched in version 7.</description>
+    </item>
+    <item>
+      <title>How I was able to by bypass my schools security system and gain sudo privileges on the school MacBooks</title>
+      <link>http://localhost:1313/blog/bypass-sudo-macbook/</link>
+      <pubDate>Fri, 22 Feb 2019 21:49:35 +0200</pubDate>
+      <guid>http://localhost:1313/blog/bypass-sudo-macbook/</guid>
+      <description>I am very lucky to go to a school which gives us MacBook Airs to use at school and at home. A few months after I got my MacBook, I started to learn about the command line because why not? Something that I noticed while playing around on the terminal was that I was not able to run commands as root.
+I kept getting this error when running any command with sudo or if I just ran su:</description>
+    </item>
+    <item>
+      <title>Reflected XSS and HTML injection on netlife.no</title>
+      <link>http://localhost:1313/blog/netlife-xss/</link>
+      <pubDate>Thu, 25 Oct 2018 21:49:35 +0200</pubDate>
+      <guid>http://localhost:1313/blog/netlife-xss/</guid>
+      <description>On the 22nd of October I was successfully able to find out that netlife.no was vulnerable to HTML injection and reflected XSS. So you might be wondering why did I target Netlife? Well it had only been a few weeks since we had school photos taken and after a few days we were told to go to fotonorden.no where we had to put in a code and then could see our images and Foto Norden used Netlife’s service to show and sell the photos to us.</description>
+    </item>
+  </channel>
+</rss>

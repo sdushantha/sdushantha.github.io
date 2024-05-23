@@ -1,0 +1,20 @@
+.dark {
+  --theme: rgb(9, 10, 12);
+  --entry: rgb(26, 26, 31);
+  --code-block-bg: rgb(28, 29, 33);
+  --code-bg: rgb(28, 29, 33);
+}
+
+:root {
+  --radius: 3px;
+}
+
+img[src$='#center']
+{
+    display: block;
+    margin: 0.7rem auto;
+}
+
+.first-entry {
+  margin: 0;
+}
