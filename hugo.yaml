@@ -40,7 +40,7 @@ params:
   # home-info mode
   homeInfoParams:
     Title: "`$ whoami`"
-    Content: "Security analyst who does pentesting, security research, and open source developement"
+    Content: "Penetration tester who does security research and open source development"
 
   socialIcons:
     - name: github
