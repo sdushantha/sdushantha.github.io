@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="/main.css" rel="stylesheet" />
+      <title>siddharth</title>
+   </head>
+   <body>
+      <div id="container">
+         <div id="navbar"></div>
+         <script>
+            window.addEventListener("load", () => {
+              fetch("/navbar.html")
+                .then(res => res.text())
+                .then(data => {
+                  document.getElementById("navbar").innerHTML = data;
+                });
+            });
+         </script>
+         <pre>
+Penetration Tester // Security Researcher // Opensource Developer
+
+GitHub: <a href="https://github.com/sdushantha">/sdushantha</a>
+LinkedIn: <a href="https:/linkedin.com/in/siddharth-dushantha">/in/siddharth-dushantha</a>
+X (Twitter): <a href="https://x.com/sidheart">@sidheart</a>
+         </pre>
+      </div>
+   </body>
+</html>
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="/main.css" rel="stylesheet" />
+      <title>siddharth</title>
+   </head>
+   <body>
+      <div id="container">
+         <div id="navbar"></div>
+         <script>
+            window.addEventListener("load", () => {
+              fetch("/navbar.html")
+                .then(res => res.text())
+                .then(data => {
+                  document.getElementById("navbar").innerHTML = data;
+                });
+            });
+         </script>
+         <div id="feed">
+            %%FEED%%
+        </div>
+      </div>
+   </body>
+</html>
+

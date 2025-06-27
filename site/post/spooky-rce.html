@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="/main.css" rel="stylesheet" />
+      <title>Spooky Remote Code Execution</title>
+   </head>
+   <body>
+      <div id="container">
+         <div id="navbar"></div>
+         <script>
+            window.addEventListener("load", () => {
+              fetch("/navbar.html")
+                .then(res => res.text())
+                .then(data => {
+                  document.getElementById("navbar").innerHTML = data;
+                });
+            });
+         </script>
+         <b>Spooky Remote Code Execution</b><br/>
+         <i>Published on 11.02.2025</i>
+         <hr>
+         <div>
+             <p>On December 31, 2024, version 1.0.1 of the modern
+             terminal emulator <a
+             href="https://github.com/ghostty-org/ghostty">Ghostty</a>
+             was released that patched a code execution vulnerability,
+             now tracked as <a
+             href="https://github.com/ghostty-org/ghostty/security/advisories/GHSA-5hcq-3j4q-4v6p">CVE-2024-56803</a>.
+             While terminals execute commands by design, this
+             vulnerability allowed for unintended command execution
+             through the title reporting escape sequence
+             <code>(\e[21t)</code>.</p>
+             <p>This occurred because the escape sequence inserted the
+             window title directly into the command line. If the user
+             pressed Enter, the inserted title would be executed as a
+             command.</p>
+             <p>For example, it was possible to launch the calculator by
+             modifying the title using <code>\e]2;&lt;title&gt;</code>,
+             where <code>&lt;title&gt;</code> is the command, such as
+             gnome-calculator. When combined with the title reporting
+             escape sequence, the title would be inserted into the
+             command line in the format <code>l&lt;title&gt;</code>,
+             where <code>l</code> denotes that the subsequent string is
+             the window title.</p>
+             <p>However, Ghostty dynamically updates the window title
+             after every executed command to reflect the current working
+             directory. This behaviour interfered with the exploit by
+             overriding the title that we controlled with a string
+             containing the updated path.</p>
+             <p><img src="https://i.ibb.co/F4VwM3Nk/1.png" /></p>
+             <p>To bypass this, we could merge the title setting
+             sequence and the title reporting sequence into a single
+             sequence, preventing Ghostty from updating the title before
+             the payload got inserted into the command line.</p>
+             <p><img src="https://i.ibb.co/yB87s91P/2.png" /></p>
+             <p>Another issue that arose was that the inserted title was
+             prefixed with <code>l</code>, preventing execution of the
+             command. While this character could not be removed, a
+             workaround was found where would prepend a semicolon
+             <code>(;)</code> to the payload. This would make Bash
+             interpret the inserted title as two separate commands as
+             the semicolon is a command separator.</p>
+             <p><img src="https://i.ibb.co/fY0zj9vm/3.png" /></p>
+             <p>This payload could be delivered by having it stored in a
+             file and having a user <code>cat</code> it or fetch it
+             using <code>curl</code>. But most users won’t press Enter
+             when they see that commands have been inserted into their
+             command line.</p>
+             <p>Therefore, a payload can be crafted where
+             <code>\e[8m</code> is used to make the malicious command
+             invisible, along with a fake error message that is
+             displayed to deceive the user into pressing “Enter”.</p>
+             <p><img src="https://i.ibb.co/bgwSFhhF/4.png" /></p>
+             <p>There are ongoing discussions about whether terminal
+             emulator developers or CLI/TUI tool developers should be
+             blamed for allowing escape sequences to be parsed when they
+             are not needed. In the meantime, it is crucial to address
+             the fact that escape sequences, an old technology that has
+             not been updated, poses as a security risk. Therefore, it
+             is important that user input is always sanitised to prevent
+             users from being compromised.</p>
+      </div>
+   </body>
+</html>
