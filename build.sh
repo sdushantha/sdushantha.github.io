@@ -8,13 +8,19 @@
 
 shopt -s extglob nullglob
 
-rm -rf site
-mkdir -p site/post
-
 # Use a temporary directory to setup the templates by injecting
 # the navbar into them.
 tmp_templates=$(mktemp -d)
 trap 'rm -rf "$tmp_templates"' EXIT
+
+# Checking if pandoc is installed
+if ! command -v "pandoc" >/dev/null 2>&1; then
+    echo -e "\e[31m✘\e[0m Could not find 'pandoc'"
+    exit 1
+fi
+
+rm -rf site
+mkdir -p site/post
 
 navbar=$(<templates/navbar.html)
 
