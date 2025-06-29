@@ -8,22 +8,13 @@
    </head>
    <body>
       <div id="container">
-         <div id="navbar"></div>
-         <script>
-            window.addEventListener("load", () => {
-              fetch("/navbar.html")
-                .then(res => res.text())
-                .then(data => {
-                  document.getElementById("navbar").innerHTML = data;
-                });
-            });
-         </script>
-         <b>$title$</b><br/>
-         <i>Published on $date$</i>
-         <hr>
-         <div>
-             $body$
-      </div>
+          <!-- NAVBAR -->
+          <b>$title$</b><br/>
+          <i>Published on $date$</i>
+          <hr>
+          <div>
+              $body$
+          </div>
    </body>
 </html>
 
