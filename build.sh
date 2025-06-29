@@ -35,7 +35,7 @@ for mdpost in src/posts/*.md; do
     pandoc "$mdpost" -o "site/post/$name.html" --template="$tmp_templates/post.html"
 
     feed+=("<p>$date  <a href=\"/post/$name.html\">$title</a></p>")
-    echo -e "\e[32m✔\e[0m Built post: $title"
+    echo -e "\e[32m✔\e[0m Built Post: $title"
 done
 
 feed=$(printf '%s\n' "${feed[@]}" | sort -r)
@@ -49,7 +49,7 @@ echo "$feed" |
 for mdfile in src/*.md; do
     name=$(basename $mdfile .md)
     pandoc "$mdfile" -o "site/$name.html" --template="$tmp_templates/generic.html"
-    echo -e "\e[32m✔\e[0m Built page: $name.html"
+    echo -e "\e[32m✔\e[0m Built Page: $name.html"
 done
 
 cp src/!(*.md) site 2>/dev/null
