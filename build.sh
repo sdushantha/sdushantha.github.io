@@ -1,11 +1,15 @@
-# /usr/bin/env bash
+#!/usr/bin/env bash
 #
 # Siddharth Dushantha 2025
 #
-# Build script for building my site
+# Build script for building my static site.
 # https://github.com/sdushantha/sdushantha.github.io
 #
+# Dependencies: pandoc
+#
 
+# extglob: Add support for advanced globbing
+# nullglob: Dont return the pattern if nothing is found
 shopt -s extglob nullglob
 
 # Use a temporary directory to setup the templates by injecting
@@ -19,7 +23,18 @@ if ! command -v "pandoc" >/dev/null 2>&1; then
     exit 1
 fi
 
+# Remove the 'site' directory in case it already exists. If this is not
+# done, then the pages that were removed from 'src' wll be present in 'site'.
 rm -rf site
+
+# Create the 'site/post' directory. We call this 'post' even though
+# the directory in 'src' is called 'posts'. This is to prevent any
+# confusion when looking at the URL.
+# 
+# example.com/posts/demo-blog.html
+#                 │
+#                 └ The 's' may suggest that visiting /posts shows a list of all
+#                   posts, while the list of posts are actually shown on /index.html
 mkdir -p site/post
 
 navbar=$(<templates/navbar.html)
@@ -30,34 +45,51 @@ for template_name in index post generic; do
     echo "${template//<\!-- NAVBAR -->/$navbar}" > "$tmp_templates/$template_name.html"
 done
 
-feed=()
+feed_array=()
 
-# Build the blog posts
+# Build the posts that are written in markdown by converting them into HTML
+# and inserting into a 'post' template.
 for mdpost in src/posts/*.md; do
-    name=$(basename $mdpost .md)
-    date=$(grep -Po "^date:\s*\K.*" $mdpost)
-    title=$(grep -Po "^title:\s*\K.*" $mdpost)
+    name=$(basename "$mdpost" .md)
 
+    # The blog posts are written in markdown and contain YAML metadata/headers
+    # with date and title values. Pandoc uses these values to insert them in the
+    # $date$ and $title$ placeholders. But since we need these values for the
+    # feed list, we have to extract them ourselves as well.
+    date=$(grep -Po "^date:\s*\K.*" "$mdpost")
+    title=$(grep -Po "^title:\s*\K.*" "$mdpost")
+
+    # Convert the markdown file to HTML and use the post.html template when doing so
+    # TODO: improve this comment 
     pandoc "$mdpost" -o "site/post/$name.html" --template="$tmp_templates/post.html"
 
-    feed+=("<p>$date  <a href=\"/post/$name.html\">$title</a></p>")
+    # Create a feed item which will be shown on index.html
+    feed_array+=("<p>$date  <a href=\"/post/$name.html\">$title</a></p>")
     echo -e "\e[32m✔\e[0m Built Post: $title"
 done
 
-feed=$(printf '%s\n' "${feed[@]}" | sort -r)
+# Sort the feed in decending order by date
+feed=$(printf '%s\n' "${feed_array[@]}" | sort -r)
 
+# Replace %%FEED%% with the feed list which comes from the stdin. The
+# reason for using stdin is because the contents of $feed contains 
+# special characters which will mess up with the sed expression if we
+# use a variable.
 echo "$feed" |
-    sed "/%%FEED%%/r /dev/stdin" "$tmp_templates/index.html" |
-    sed "/%%FEED%%/d" > site/index.html
+    sed -e "/%%FEED%%/r /dev/stdin" \
+        -e "/%%FEED%%/d" \
+        "$tmp_templates/index.html" > site/index.html
 
 
-# Build other pages
+# Build all other makrdown files present in the 'src' directory and use the
+# 'generic' template. This template is nothing fancy, it just conatins the navbar.
 for mdfile in src/*.md; do
-    name=$(basename $mdfile .md)
+    name=$(basename "$mdfile" .md)
     pandoc "$mdfile" -o "site/$name.html" --template="$tmp_templates/generic.html"
     echo -e "\e[32m✔\e[0m Built Page: $name.html"
 done
 
+# Copy all non markdown files to the 'site' directory
 cp src/!(*.md) site 2>/dev/null
 
 echo -e "\e[32m✔\e[0m Build Complete"
