@@ -80,7 +80,6 @@ echo "$feed" |
         -e "/%%FEED%%/d" \
         "$tmp_templates/index.html" > site/index.html
 
-
 # Build all other makrdown files present in the 'src' directory and use the
 # 'generic' template. This template is nothing fancy, it just conatins the navbar.
 for mdfile in src/*.md; do
@@ -90,6 +89,11 @@ for mdfile in src/*.md; do
 done
 
 # Copy all non markdown files to the 'site' directory
-cp src/!(*.md) site 2>/dev/null
+for file in src/!(*.md); do
+    if [ -f "$file" ]; then
+        cp "$file" site
+        echo -e "\e[32m✔\e[0m Built Page: $(basename $file)"
+    fi
+done
 
 echo -e "\e[32m✔\e[0m Build Complete"
