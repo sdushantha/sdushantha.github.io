@@ -1,89 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>watchtower</title>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-900 min-h-screen">
-  <main id="camera-grid" class="font-mono p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></main>
+    <head>
+        <meta charset="UTF-8" />
+        <title>watchtower</title>
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-slate-900 min-h-screen">
+        <main id="camera-grid" class="font-mono p-4 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4"></main>
 
-  <script>
-    const streams = [
-      {
-        url: 'https://polarislive-lh.akamaized.net/hls/live/2039440/fvn/jcp1YQkJV7Zb4khPH2q8O/source.m3u8',
-        label: 'Torget'
-      },
-      {
-        url: 'https://polarislive-lh.akamaized.net/hls/live/2039438/fvn/jqGugHSmKzQwRw5pMerRL/master.m3u8',
-        label: 'Bystranda from Scandic'
-      },
-      {
-        url: 'https://polarislive-lh.akamaized.net/hls/live/2039439/fvn/yJKAuwx5vVRZR46DZsCkE/master.m3u8',
-        label: 'Havna to Kanalbyen'
-      },
-      {
-        url: 'https://polarislive-lh.akamaized.net/hls/live/2039440/fvn/hzDaPl9KkIbkcZFUvWFfg/master.m3u8',
-        label: 'Gartnerløkka (E18)'
-      },
-      {
-        url: 'https://polarislive-lh.akamaized.net/hls/live/2039441/fvn/E2DQrQucMW0BLUBanyKzL/master.m3u8',
-        label: 'Kjøita towards Krs Brannstasjon (E18)'
-      },
-      {
-        url: 'https://polarislive-lh.akamaized.net/hls/live/2039441/fvn/LRIXC23aIKgRVowDr7yhS/master.m3u8',
-        label: 'Varoddbrua'
-      },
-      {
-        url: 'https://kamera.vegvesen.no/public/1029002_1/manifest.m3u8',
-        label: 'Fidjane (E39)'
-      }
-    ];
+        <script>
+            const streams = [
+                {
+                    url: "https://polarislive-lh.akamaized.net/hls/live/2039440/fvn/jcp1YQkJV7Zb4khPH2q8O/source.m3u8",
+                    label: "Torget",
+                },
+                {
+                    url: "https://polarislive-lh.akamaized.net/hls/live/2039438/fvn/jqGugHSmKzQwRw5pMerRL/master.m3u8",
+                    label: "Bystranda from Scandic",
+                },
+                {
+                    url: "https://polarislive-lh.akamaized.net/hls/live/2039439/fvn/yJKAuwx5vVRZR46DZsCkE/master.m3u8",
+                    label: "Havna to Kanalbyen",
+                },
+                {
+                    url: "https://polarislive-lh.akamaized.net/hls/live/2039440/fvn/hzDaPl9KkIbkcZFUvWFfg/master.m3u8",
+                    label: "Gartnerløkka (E18)",
+                },
+                {
+                    url: "https://polarislive-lh.akamaized.net/hls/live/2039441/fvn/E2DQrQucMW0BLUBanyKzL/master.m3u8",
+                    label: "Kjøita towards Krs Brannstasjon (E18)",
+                },
+                {
+                    url: "https://polarislive-lh.akamaized.net/hls/live/2039441/fvn/LRIXC23aIKgRVowDr7yhS/master.m3u8",
+                    label: "Varoddbrua",
+                },
+                {
+                    url: "https://kamera.vegvesen.no/public/1029002_1/manifest.m3u8",
+                    label: "Fidjane (E39)",
+                },
+            ];
 
+            const container = document.getElementById("camera-grid");
 
-    const container = document.getElementById('camera-grid');
+            streams.forEach((stream, index) => {
+                if (!stream.url.length) return;
 
-    streams.forEach((stream, index) => {
-      if (!stream.url.length) return;
+                const wrapper = document.createElement("div");
+                wrapper.className = "bg-slate-800 overflow-hidden rounded-[5px]";
 
-      const wrapper = document.createElement('div');
-      wrapper.className = 'bg-slate-800 overflow-hidden rounded-[5px]';
+                const videoContainer = document.createElement("div");
+                videoContainer.className = "aspect-video bg-black";
 
-      const videoContainer = document.createElement('div');
-      videoContainer.className = 'aspect-video bg-black';
+                const video = document.createElement("video");
+                video.setAttribute("controls", "true");
+                video.setAttribute("playsinline", "true");
+                video.setAttribute("autoplay", "");
+                video.className = "w-full h-full object-cover";
+                video.id = `video-${index}`;
 
-      const video = document.createElement('video');
-      video.setAttribute('controls', 'true');
-      video.setAttribute('playsinline', 'true');
-      video.className = 'w-full h-full object-cover';
-      video.id = `video-${index}`;
+                videoContainer.appendChild(video);
 
-      videoContainer.appendChild(video);
+                const label = document.createElement("div");
+                label.className = "p-2 text-sm text-gray-100";
+                label.textContent = stream.label;
 
-      const label = document.createElement('div');
-      label.className = 'p-2 text-sm text-gray-100';
-      label.textContent = stream.label;
+                wrapper.appendChild(videoContainer);
+                wrapper.appendChild(label);
+                container.appendChild(wrapper);
 
-      wrapper.appendChild(videoContainer);
-      wrapper.appendChild(label);
-      container.appendChild(wrapper);
-
-      if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(stream.url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          video.play();
-        });
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = stream.url;
-        video.addEventListener('loadedmetadata', () => {
-          video.play();
-        });
-      }
-    });
-  </script>
-</body>
+                if (Hls.isSupported()) {
+                    const hls = new Hls();
+                    hls.loadSource(stream.url);
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                        video.play();
+                    });
+                } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+                    video.src = stream.url;
+                    video.addEventListener("loadedmetadata", () => {
+                        video.play();
+                    });
+                }
+            });
+        </script>
+    </body>
 </html>
 
