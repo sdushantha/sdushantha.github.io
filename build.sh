@@ -32,9 +32,9 @@ rm -rf site
 # confusion when looking at the URL.
 # 
 # example.com/posts/demo-blog.html
-#                 │
-#                 └ The 's' may suggest that visiting /posts shows a list of all
-#                   posts, while the list of posts are actually shown on /index.html
+#                 |
+#                 +-- The 's' may suggest that visiting /posts shows a list of all
+#                     posts, while the list of posts are actually shown on /index.html
 mkdir -p site/post
 
 navbar=$(<templates/navbar.html)
@@ -61,7 +61,7 @@ for mdpost in src/posts/*.md; do
 
     # Convert the markdown file to HTML and use the post.html template when doing so
     # TODO: improve this comment 
-    pandoc "$mdpost" -o "site/post/$name.html" --template="$tmp_templates/post.html"
+    pandoc "$mdpost" -o "site/post/$name.html" --template="$tmp_templates/post.html" --no-highlight --preserve-tabs -f markdown-smart -t html
 
     # Create a feed item which will be shown on index.html
     feed_array+=("<p>$date  <a href=\"/post/$name.html\">$title</a></p>")
@@ -69,7 +69,7 @@ for mdpost in src/posts/*.md; do
 done
 
 # Sort the feed in decending order by date
-feed=$(printf '%s\n' "${feed_array[@]}" | sort -r)
+feed=$(printf '%s\n' "${feed_array[@]}" | sort -t. -k3,3nr -k2,2nr -k1,1nr )
 
 # Replace %%FEED%% with the feed list which comes from the stdin. The
 # reason for using stdin is because the contents of $feed contains 

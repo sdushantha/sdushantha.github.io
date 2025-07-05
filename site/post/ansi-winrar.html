@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="/main.css" rel="stylesheet" />
+      <title>ANSI Escape Injection Vulnerability in WinRAR</title>
+   </head>
+   <body>
+      <div id="container">
+          <pre style="cursor: pointer; user-select: none;" onclick="window.location.replace('/')">
+                                   
+     _   _   _ _           _   _  
+ ___|_|_| |_| | |_ ___ ___| |_| |_ 
+|_ -| | . | . |   | .'|  _|  _|   |
+|___|_|___|___|_|_|__,|_| |_| |_|_|
+
+<a href="/">index</a> <a href="/about.html">about</a> <a href="/cve.html">cve</a>
+
+</pre>
+          <b>ANSI Escape Injection Vulnerability in WinRAR</b><br/>
+          <i>Published on 21.05.2024</i>
+          <hr>
+          <div>
+              <p>On 28 February 2024, RARLAB released an update for
+              WinRAR, patching an ANSI escape sequence injection
+              vulnerability that I had found in the console versions of
+              RAR and UnRAR, affecting versions 6.24 and earlier. This
+              vulnerability, tracked as CVE-2024–33899 for Linux and
+              Unix systems and CVE-2024–36052 for the Windows, allowed
+              attackers to spoof screen output or cause denial of
+              service (in Linux and Unix). This vulnerability was
+              patched in version 7.00. It’s important to note that the
+              GUI version of WinRAR and the UnRAR library were not
+              impacted by this vulnerability, regardless of the
+              version.</p>
+              <p>In this post, I will walk you through how this
+              vulnerability works and demonstrate a proof of concept.
+              While I will be showcasing this on a Linux system, the
+              same can be done on a Windows or Unix system.</p>
+              <p><strong>Background</strong></p>
+              <p>If you are familiar with the Linux, Unix or Windows
+              command line, chances are that you’ve encountered programs
+              like <a href="https://github.com/vim/vim">Vim</a> and <a
+              href="https://github.com/dylanaraps/neofetch/">Neofetch</a>.
+              These programs use ANSI escape sequences to modify the
+              text and background color, control the cursor, and create
+              <a
+              href="https://web.archive.org/web/20240524111033/https://github.com/Textualize/textual">GUI
+              within the terminal</a>.</p>
+              <p><img
+              src="https://i.ibb.co/gFj3DnVD/ansi-esc-test.png" /></p>
+              <p>Even though ANSI escape sequences can be used to create
+              fancy terminal programs, it can also be weaponized, as
+              shown in <a
+              href="https://www.youtube.com/watch?v=3T2Al3jdY38">Stok
+              Fredrik’s DEFCON talk</a>.</p>
+              <p>WinRAR provides console RAR and UnRAR which can be use
+              to create and extract RAR archives. As shown in the image
+              below, RAR files support comments, that gets displayed
+              when listing the contents of the archive file using
+              <code>unrar l demo.rar</code>.</p>
+              <p><img
+              src="https://i.ibb.co/GfVsScf9/comment-demo.png" /></p>
+              <p>In order to check if ANSI escape sequences are filtered
+              out in the comment section, we can use a simple payload
+              that will display <code>THIS IS GREEN</code> in the color
+              green.</p>
+              <pre><code>printf &#39;Hello \033[32mTHIS IS GREEN\033[0m\007&#39; | rar c demo.rar</code></pre>
+              <p>Upon executing <code>rar l demo.rar</code>, we are able
+              to see that <code>THIS IS GREEN</code> is outputted in
+              green. This shows that the comment field does not filter
+              ANSI escape sequences in the output.</p>
+              <p><img
+              src="https://i.ibb.co/LzVCzVcf/this-is-green-poc.png" /></p>
+              <p><strong>Exploitation</strong></p>
+              <p>This vulnerability can be exploited in many various
+              ways but an exploit suited for WinRAR will be used as a
+              demonstration.</p>
+              <p>First, we will put our <code>virus.exe</code> file
+              inside an <code>rar</code> file:</p>
+              <pre class="console"><code>$ ls 
+virus.exe
+$ rar a demo.rar virus.exe</code></pre>
+              <p>Next, we will add the following payload to the comment
+              section:</p>
+              <pre class="bash"><code>printf &#39;Archive: demo.rar\nDetails: RAR 5\n\nAttributes      Size       Date   Time   Name\n----------- ---------  ---------- -----  ---------\n-rw-r--r--          7  2024-05-19 16:26  notvirus.pdf\n----------- ---------  ---------- -----  ---------\n                    7                    1\e[8m&#39; | rar c demo.rar</code></pre>
+              <p>This payload includes a fake listing where
+              <code>virus.exe</code> is replaced with
+              <code>notvirus.pdf</code>. The ANSI escape sequence
+              <code>\e[8m</code> is used to hide all content after the
+              comment section in the output. As a result, the actual
+              file listing is hidden, and our fake file listing is
+              displayed. In the screenshot below, you can see a large
+              gap between the output and the shell prompt. This gap is
+              due to the original file listing being outputted but
+              rendered invisible using <code>\e[8m</code>. While
+              experienced command line users may find this suspicious,
+              less experienced users could easily be tricked.</p>
+              <p><img
+              src="https://i.ibb.co/dsPD3LnM/before-after.png" /></p>
+              <p>As mentioned at the beginning of this post, there are
+              two CVEs associated with this vulnerability due to its
+              significantly higher severity on Linux and Unix systems
+              compared to Windows. This is because on Linux and Unix
+              systems, certain ANSI escape sequences can be used to
+              achieve a local denial of service.</p>
+              <p>The payload below, which is taken from <a
+              href="https://web.archive.org/web/20240524111033/https://i.blackhat.com/BH-US-23/Presentations/US-23-stok-weponizing-plain-text-ansi-escape-sequences-as-a-forensic-nightmare-appendix.pdf">Stok
+              Fredrik’s Black Hat slides</a>, captures all cursor
+              movements and outputs the coordinates to the terminal.
+              This only works on Linux and Unix systems. When tested on
+              a Kali Linux VM, the cursor coordinates were outputted to
+              the terminal and the VM later ended up being frozen.</p>
+              <pre class="bash"><code>\033[?1001h\033[?1002h\033[?1003h\033[?1004h\033[?1005h\033[?1006h\033[?1007h\033[?1015h\033[?10016h\</code></pre>
+              <p>Despite the limited research on ANSI escape sequences,
+              it’s evident that attackers with a deep understanding of
+              ANSI escape sequences can exploit them in a creative,
+              malicious and sometimes even annoying ways.</p>
+              <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css">
+              <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+              <script defer>
+                  window.addEventListener('load', () => {
+                      hljs.highlightAll();
+                  });
+              </script>
+          </div>
+   </body>
+</html>
