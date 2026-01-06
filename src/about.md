@@ -2,7 +2,7 @@
 title: about
 ---
 
-Penetration Tester // Security Researcher // Opensource Developer
+I make and break stuff.
 
 GitHub: [/sdushantha](https://github.com/sdushantha)<br>
 LinkedIn: [/in/siddharth-dushantha](https://linkedin.com/in/siddharth-dushantha)<br>
