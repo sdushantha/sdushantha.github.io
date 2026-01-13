@@ -88,12 +88,13 @@ for mdfile in src/*.md; do
     echo -e "\e[32m✔\e[0m Built Page: $name.html"
 done
 
-# Copy all non markdown files to the 'site' directory
+# Copy all non-markdown files to the 'site' directory
 for file in src/!(*.md); do
-    if [ -f "$file" ]; then
-        cp "$file" site
-        echo -e "\e[32m✔\e[0m Built Page: $(basename $file)"
-    fi
+    # The wildcard above matches all non-markdown files, but includes
+    # 'src/posts/', which we do not want.
+    [[ ! -f "$file" ]] && continue
+    cp "$file" site
+    echo -e "\e[32m✔\e[0m Built Page: $(basename $file)"
 done
 
 echo -e "\e[32m✔\e[0m Build Complete"
