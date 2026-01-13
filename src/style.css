@@ -68,4 +68,33 @@ code {
     padding:1px 3px;
 }
 
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #121212;
+        color: #e6e6e6;
+    }
 
+
+    ::selection {
+        background: #f7e788;
+        color: #121212
+    }
+
+    ::-moz-selection {
+        background: #f7e788;
+        color: #121212
+    }
+
+    a,
+    a:visited,
+    a:hover,
+    a:active,
+    a:focus {
+        color: #ae7de9;
+    }
+
+
+    code {
+        background: #2d2d2d;
+    }
+}
