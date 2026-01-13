@@ -2,7 +2,7 @@
 title: about
 ---
 
-I make and break stuff.
+I make and break stuff
 
 GitHub: [/sdushantha](https://github.com/sdushantha)<br>
 LinkedIn: [/in/siddharth-dushantha](https://linkedin.com/in/siddharth-dushantha)<br>
