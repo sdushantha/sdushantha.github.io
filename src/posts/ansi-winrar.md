@@ -61,11 +61,3 @@ The payload below, which is taken from [Stok Fredrik’s Black Hat slides](https
 
 Despite the limited research on ANSI escape sequences, it’s evident that attackers with a deep understanding of ANSI escape sequences can exploit them in a creative, malicious and sometimes even annoying ways.
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css" media="(prefers-color-scheme: light)">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/dark.min.css" media="(prefers-color-scheme: dark)">
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
-<script defer>
-    window.addEventListener('load', () => {
-        hljs.highlightAll();
-    });
-</script>

@@ -7,8 +7,16 @@
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css" media="(prefers-color-scheme: light)">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/dark.min.css" media="(prefers-color-scheme: dark)">
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
       <title>Spooky Remote Code Execution</title>
    </head>
+   <script defer>
+       window.addEventListener('load', () => {
+           hljs.highlightAll();
+       });
+   </script>
    <body>
       <div id="container">
           <pre><span style="cursor: pointer; user-select: none;" onclick="window.location.replace('/')">                                 
