@@ -10,50 +10,29 @@ body {
     background: #f7e788;
 }
 
-::-moz-selection {
-    background: #f7e788;
-}
-
-@media (max-width: 768px) {
-  body {
-    font-size: 12px;
-  }
-}
-
-a,
-a:visited,
-a:hover,
-a:active,
-a:focus {
+a {
     color: #0000ee;
+}
+
+code {
+    background:#f3f3f3;
+    padding:1px 3px;
+}
+
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 #feed p {
     margin: 0;
 }
 
-pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;     /* for older browsers */
-  overflow-wrap: break-word; /* for modern browsers */
-}
-
 #container {
     line-height: 1.5;
-    word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 80ch;
     width: 100%;
-}
-
-@media (max-width: 768px) {
-    #container {
-        max-width: 100%;
-    }
-
-    body {
-        padding: 10px;
-    }
 }
 
 img {
@@ -63,36 +42,32 @@ img {
     margin: auto;
 }
 
-code {
-    background:#F3F3F3;
-    padding:1px 3px;
-}
+/* Mobile */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        font-size: 12px;
+    }
 
+    #container {
+        max-width: 100%;
+    }
+}
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
     body {
         background: #121212;
         color: #e6e6e6;
     }
 
-
     ::selection {
         background: #f7e788;
         color: #121212
     }
 
-    ::-moz-selection {
-        background: #f7e788;
-        color: #121212
-    }
-
-    a,
-    a:visited,
-    a:hover,
-    a:active,
-    a:focus {
+    a {
         color: #ae7de9;
     }
-
 
     code {
         background: #2d2d2d;
