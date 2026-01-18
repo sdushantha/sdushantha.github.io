@@ -64,12 +64,12 @@ for mdpost in src/posts/*.md; do
     pandoc "$mdpost" -o "site/post/$name.html" --template="$tmp_templates/post.html" --no-highlight --preserve-tabs -f markdown-smart -t html
 
     # Create a feed item which will be shown on index.html
-    feed_array+=("<p>$date  <a href=\"/post/$name.html\">$title</a></p>")
+    feed_array+=("<p>$date  <a href=\"/post/$name\">$title</a></p>")
     echo -e "\e[32m✔\e[0m Built Post: $title"
 done
 
 # Sort the feed in decending order by date
-feed=$(printf '%s\n' "${feed_array[@]}" | sort -t. -k3,3nr -k2,2nr -k1,1nr )
+feed=$(printf '%s\n' "${feed_array[@]}" | sort -t. -k3,3nr -k2,2nr -k1,1nr)
 
 # Replace %%FEED%% with the feed list which comes from the stdin. The
 # reason for using stdin is because the contents of $feed contains 

@@ -1,9 +1,9 @@
 ---
-title: Setting Up A Catch-All Inbox Using Cloudflare
+title: Setting Up A Free Catch-All Inbox Using Cloudflare
 date: 01.18.2026
 ---
 
-I recently learned that Cloudflare offers a simple way to create a catch-all inbox for your domain. As documentation for my future self and to share this knowledge with fellow netizens, I've written this guide.
+I recently learned that Cloudflare offers a free way to create a catch-all inbox for your domain. As documentation for my future self and to share this knowledge with fellow netizens, I've written this guide.
 
 This setup uses Clouflare's email routing and catch-all feature to forward all emails sent to \*@example.com to an email address of your choice.
 
