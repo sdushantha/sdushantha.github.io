@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="/style.css" rel="stylesheet" />
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css" media="(prefers-color-scheme: light)">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/dark.min.css" media="(prefers-color-scheme: dark)">
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+      <title>Setting Up A Catch-All Inbox Using Cloudflare</title>
+   </head>
+   <script defer>
+       window.addEventListener('load', () => {
+           hljs.highlightAll();
+       });
+   </script>
+   <body>
+      <div id="container">
+          <pre><span style="cursor: pointer; user-select: none;" onclick="window.location.replace('/')">                                 
+     _   _   _ _           _   _  
+ ___|_|_| |_| | |_ ___ ___| |_| |_ 
+|_ -| | . | . |   | .'|  _|  _|   |
+|___|_|___|___|_|_|__,|_| |_| |_|_|
+
+</span><a href="/">index</a> <a href="/about.html">about</a> <a href="/cve.html">cve</a>
+</pre>
+          <b>Setting Up A Catch-All Inbox Using Cloudflare</b><br/>
+          <i>Published on 01.18.2026</i>
+          <hr>
+          <div>
+              <p>I recently learned that Cloudflare offers a simple way
+              to create a catch-all inbox for your domain. As
+              documentation for my future self and to share this
+              knowledge with fellow netizens, I've written this
+              guide.</p>
+              <p>This setup uses Clouflare's email routing and catch-all
+              feature to forward all emails sent to *<span
+              class="citation"
+              data-cites="example.com">@example.com</span> to an email
+              address of your choice.</p>
+              <p>Before you begin, ensure you have:</p>
+              <ol type="1">
+              <li>Created a Cloudflare account</li>
+              <li>Bought a domain</li>
+              <li>Added your domain to Cloudflare (See <a
+              href="https://developers.cloudflare.com/fundamentals/manage-domains/add-site/">Cloudflare's
+              documentation</a>)</li>
+              <li>An email address that will receive all the emails</li>
+              </ol>
+              <hr />
+              <p><strong>1. Enable Email Routing</strong></p>
+              <p>Navigate to your domain's email routing settings and
+              enable email routing by clicking the "Add records and
+              enable" button.</p>
+              <p><strong>Magic link:</strong> <a
+              href="https://dash.cloudflare.com/?to=/:account/:zone/email/routing/enable">https://dash.cloudflare.com/?to=/:account/:zone/email/routing/enable</a></p>
+              <p><img
+              src="https://i.ibb.co/5WpFGfgT/Screenshot-From-2026-01-17-14-54-42.png" /></p>
+              <p>You'll redirected to the Settings pane, where you can
+              verify that routing has been enabled.</p>
+              <p><img
+              src="https://i.ibb.co/XfNnbzcT/email-settings-yellow.png" /></p>
+              <p><strong>2. Add a Destination Address</strong></p>
+              <p>By default, Cloudflare displays the email address
+              associated with your account. If you'd like to use a
+              different email address to receive your forwarded emails,
+              click "Add destination address" and add a your preferred
+              email address.</p>
+              <p><strong>Magic link:</strong> <a
+              href="https://dash.cloudflare.com/?to=/:account/:zone/email/routing/routes/destination-address">https://dash.cloudflare.com/?to=/:account/:zone/email/routing/routes/destination-address</a></p>
+              <p><img
+              src="https://i.ibb.co/7NN2zVFg/Screenshot-From-2026-01-17-15-03-49.png" /></p>
+              <p><strong>3. Enable a Catch-All</strong></p>
+              <p>Go to "Routing rules" pane and enable the catch-all
+              address using the toggle under "Status".</p>
+              <p><strong>Magic link:</strong> <a
+              href="https://dash.cloudflare.com/?to=/:account/:zone/email/routing/routes">https://dash.cloudflare.com/?to=/:account/:zone/email/routing/routes</a></p>
+              <p><img
+              src="https://i.ibb.co/MDb1YWGB/Screenshot-From-2026-01-17-15-05-55.png" /></p>
+              <p><strong>4. Set a Catch-All Address</strong></p>
+              <p>In the catch-all settings, set "Action" to "Send to an
+              email" and "Destination" to your destination address.</p>
+              <p><strong>Magic link:</strong> <a
+              href="https://dash.cloudflare.com/?to=/:account/:zone/email/routing/routes/catch_all">https://dash.cloudflare.com/?to=/:account/:zone/email/routing/routes/catch_all</a></p>
+              <p><img
+              src="https://i.ibb.co/b5WQvrp0/Screenshot-From-2026-01-17-15-06-57.png" /></p>
+              <p>Once you click "Save", you'll be redirected to the
+              "Routing rules" page, where you can confirm that you
+              catch-all address is properly configured.</p>
+              <p><img
+              src="https://i.ibb.co/9kcV6Xpy/Screenshot-From-2026-01-17-15-07-54.png" /></p>
+              <p>To verify that everything is working correctly, send a
+              test email to a random address at your domain (e.g.,
+              blablabla@example.com). If configured properly, the email
+              should arrive in your destination email's inbox. You can
+              also check the <a
+              href="https://dash.cloudflare.com/?to=/:account/:zone/email/routing/routes/overview">Overview
+              page</a> to check the routing logs.</p>
+              <p>Its worth noting that, for me, all emails sent from any
+              of my destination addresses to the catch-all address did
+              not go through. However, emails from addresses not listed
+              in the "Destination addresses" worked as expected.</p>
+              <p>That's all folks!</p>
+          </div>
+   </body>
+</html>
