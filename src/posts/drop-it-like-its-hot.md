@@ -29,7 +29,7 @@ More details about these control characters and their history are covered in [Po
 
 Imagine downloading a zip file or cloning a git repo that contains a file with this payload as its filename. You open your GUI file manager, spot a `.txt` file, and drag it into your terminal to quickly `cat` it, but instead of reading the file, you've just executed a malicious command.
 
-One might argue that the malicious payload would be visible in the filename, raising suspicion. But if a long string is prepended to the filename, most file managers will truncate it, hiding the payload, as shown in the image below.
+One might argue that the malicious payload would be visible in the filename, raising suspicion. But if a long string is prepended to the filename, most file managers will truncate it, hiding the payload.
 
 ![](https://i.ibb.co/rf2VhbtB/image.png)
 
