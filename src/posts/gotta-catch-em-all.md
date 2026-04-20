@@ -1,6 +1,6 @@
 ---
 title: Setting Up A Free Catch-All Inbox Using Cloudflare
-date: 01.18.2026
+date: 18.01.2026
 ---
 
 I recently learned that Cloudflare offers a free way to create a catch-all inbox for your domain. As documentation for my future self and to share this knowledge with fellow netizens, I've written this guide.
