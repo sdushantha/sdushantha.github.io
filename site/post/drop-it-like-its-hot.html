@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" type="image/png" href="favicon.png">
+      <link href="/style.css" rel="stylesheet" />
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css" media="(prefers-color-scheme: light)">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/dark.min.css" media="(prefers-color-scheme: dark)">
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+      <title>Command Execution via Drag-and-Drop in Terminal
+Emulators</title>
+   </head>
+   <script defer>
+       window.addEventListener('load', () => {
+           hljs.highlightAll();
+       });
+   </script>
+   <body>
+      <div id="container">
+          <pre><span style="cursor: pointer; user-select: none;" onclick="window.location.replace('/')">                                 
+     _   _   _ _           _   _  
+ ___|_|_| |_| | |_ ___ ___| |_| |_ 
+|_ -| | . | . |   | .'|  _|  _|   |
+|___|_|___|___|_|_|__,|_| |_| |_|_|
+
+</span><a href="/">index</a> <a href="/about">about</a> <a href="/cve">cve</a>
+</pre>
+          <b>Command Execution via Drag-and-Drop in Terminal
+Emulators</b><br/>
+          <i>Published on 20.04.2026</i>
+          <hr>
+          <div>
+              <p>Many people may not be aware that terminal emulators
+              such as Kitty and xfce4-terminal support dragging and
+              dropping of files into the terminal to insert the file's
+              path directly at the cursor position. While this feature
+              has existed for a while, more people have started to
+              notice this as Claude Code has grown in popularity and <a
+              href="https://code.claude.com/docs/en/common-workflows#work-with-images.">allows
+              users to drag and drop files for Claude to
+              process</a>.</p>
+              <p>But as we all know, fun features tend to come with fun
+              vulnerabilities!</p>
+              <p><strong>Proof of Concept</strong></p>
+              <center>
+              <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/UPzjq2aemwE?si=brgiKIZtwL3M3epR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+              </iframe>
+              </center>
+              <p>The payload used to achieve this is:</p>
+              <pre><code>\x03 gnome-calculator \x0d.txt</code></pre>
+              <p>Here is a breakdown of what each part does:</p>
+              <ul>
+              <li><code>\x03</code> - End of Text, equivalent to
+              pressing Ctrl+C</li>
+              <li><code>gnome-calculator</code> - The command to be
+              executed</li>
+              <li><code>\x0D</code> - Carriage Return, equivalent to
+              pressing Enter</li>
+              </ul>
+              <p>More details about these control characters and their
+              history are covered in <a
+              href="https://portswigger.net/research/drag-and-pwnd-leverage-ascii-characters-to-exploit-vs-code">Portswigger's
+              awesome research article</a> by <a
+              href="https://x.com/zakfedotkin">Zakhar Fedotkin</a>. The
+              short version is that the terminals interpret these
+              characters literally, and since dragged file paths are
+              inserted into the command line without any sanitization,
+              the payload gets executed as if the user typed it
+              themselves.</p>
+              <p><strong>Realistic Attack Scenario</strong></p>
+              <p>Imagine downloading a zip file or cloning a git repo
+              that contains a file with this payload as its filename.
+              You open your GUI file manager, spot a <code>.txt</code>
+              file, and drag it into your terminal to quickly
+              <code>cat</code> it, but instead of reading the file,
+              you've just executed a malicious command.</p>
+              <p>One might argue that the malicious payload would be
+              visible in the filename, raising suspicion. But if a long
+              string is prepended to the filename, most file managers
+              will truncate it, hiding the payload, as shown in the
+              image below.</p>
+              <p><img src="https://i.ibb.co/rf2VhbtB/image.png" /></p>
+              <p><strong>Many Vulnerable Terminal Emulators</strong></p>
+              <p>As shown below, this works in
+              <code>xfce4-terminal</code> as well.</p>
+              <center>
+              <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/VYHAk2shpfI?si=g6gyy5WZqQO-JFhp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+              </iframe>
+              </center>
+              <p>Both vulnerabilities have been reported to the
+              projects' maintainers and have since been patched.
+              However, no CVE has been assigned because MITRE has been
+              unresponsive, likely due to the funding cuts.</p>
+              <p>Several other terminal emulators share the same
+              vulnerability. I've reported it to their maintainers but
+              have not received any response regarding a fix. In the
+              meantime, I would recommend switching to a terminal
+              emulator that is either not affected or has been patched,
+              such as <a
+              href="https://github.com/ghostty-org/ghostty">Ghostty</a>
+              (patched, originally found by <a
+              href="https://github.com/ghostty-org/ghostty/security/advisories/GHSA-4jxv-xgrp-5m3r">Nguyen
+              Thanh Son</a>), <a
+              href="https://github.com/alacritty/alacritty">Alacritty</a>
+              (does not support drag-and-drop), <a
+              href="https://github.com/kovidgoyal/kitty">Kitty</a>
+              (patched), or <a
+              href="https://gitlab.xfce.org/apps/xfce4-terminal">XFCE4
+              Terminal</a> (patched).</p>
+          </div>
+   </body>
+</html>
