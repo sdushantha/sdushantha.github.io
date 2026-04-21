@@ -31,7 +31,7 @@ Imagine downloading a zip file or cloning a git repo that contains a file with t
 
 One might argue that the malicious payload would be visible in the filename, raising suspicion. But if a long string is prepended to the filename, most file managers will truncate it, hiding the payload.
 
-![](https://i.ibb.co/rf2VhbtB/image.png)
+![](https://i.imgur.com/rYeWUIM.png)
 
 **Many Vulnerable Terminal Emulators**
 
