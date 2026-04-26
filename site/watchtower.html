@@ -83,6 +83,24 @@
                     });
                 }
             });
+
+            let activeVideo = null;
+
+            document.querySelectorAll('video').forEach(video => {
+              video.addEventListener('mouseenter', () => activeVideo = video);
+              video.addEventListener('mouseleave', () => activeVideo = null);
+            });
+
+            document.addEventListener('keydown', (e) => {
+              if ((e.key === 'f' || e.key === 'F') && activeVideo) {
+                e.preventDefault(); // prevents triggering browser find (Ctrl+F)
+                if (!document.fullscreenElement) {
+                  activeVideo.requestFullscreen();
+                } else {
+                  document.exitFullscreen();
+                }
+              }
+            });
         </script>
     </body>
 </html>
