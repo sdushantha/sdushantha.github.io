@@ -1,6 +1,10 @@
 ---
 title: cve
 ---
+
+**CVE-2026-45038**<br>
+Command execution via the drag-and-drop functionality in Tabby prior to version 1.0.233.
+
 **CVE-2024-56803**<br>
 Ghostty is a cross-platform terminal emulator. Ghostty, as allowed by default in 1.0.0, allows attackers to modify the window title via a certain character escape sequence and then insert it back to the command line in the user's terminal, e.g. when the user views a file containing the malicious sequence, which could allow the attacker to execute arbitrary commands. This attack requires an attacker to send malicious escape sequences followed by convincing the user to physically press the "enter" key. Fixed in Ghostty v1.0.1.
 

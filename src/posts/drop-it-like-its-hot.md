@@ -42,3 +42,8 @@ As shown below, this works in `xfce4-terminal` as well.
 Both vulnerabilities have been reported to the projects' maintainers and have been patched. However, no CVE has been assigned because MITRE has been unresponsive, likely due to the funding cuts.
 
 Several other terminal emulators share the same vulnerability. I've reported it to their maintainers but have not received any response regarding a fix. In the meantime, I would recommend switching to a terminal emulator that is either not affected or has been patched, such as [Ghostty](https://github.com/ghostty-org/ghostty) (patched, originally found by [Nguyen Thanh Son](https://github.com/ghostty-org/ghostty/security/advisories/GHSA-4jxv-xgrp-5m3r)), [Alacritty](https://github.com/alacritty/alacritty) (does not support drag-and-drop), [Kitty](https://github.com/kovidgoyal/kitty) (patched), or [XFCE4 Terminal](https://gitlab.xfce.org/apps/xfce4-terminal) (patched).
+
+_**Update - 09.05.2026**_
+
+I found a similar vulnerablity in Tabby and is now being tracked as [CVE-2026-45038](https://github.com/Eugeny/tabby/security/advisories/GHSA-m937-jm93-pfp6).
+
